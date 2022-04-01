@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export default function index({ data }) {
   return !data ? (
@@ -17,7 +17,7 @@ export default function index({ data }) {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch(`http://localhost:3000/api/stock`);
+  const res = await fetch(`http://192.168.0.46:3000/api/stock`);
   const data = await res.json();
   return { props: { data } };
 }
