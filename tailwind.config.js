@@ -5,8 +5,16 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        transparent: 'transparent',
+        current: 'currentColor',
+        black: '#363740',
+      },
       spacing: {
         '240px': '240px',
+      },
+      width: {
+        '450px': '450px',
       },
     },
   },
