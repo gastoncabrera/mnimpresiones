@@ -1,9 +1,38 @@
 import React, { useState } from 'react';
 
-export default function FormProducts({ data }) {
+export default function FormProducts({ data2, modalForm, setModalForm }) {
   const [listProduct, setListProduct] = useState([{ tipo: '', cantidad: '' }]);
-  console.log(data);
 
+  // formulario de pedido
+
+  const [newPedido, setNewPedido] = useState({
+    description: '',
+    namePerson: '',
+    phone: '',
+    costo: '',
+    delivery: '',
+    producto: listProduct,
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    console.log(newPedido);
+
+    // if (query.id) {
+    //   await updateProduct();
+    // } else {
+    //   await createProduct();
+    // }
+    // await push(router.pathname);
+    // await setModal(false);
+  };
+
+  const handleChange = (e) =>
+    setNewPedido({ ...newPedido, [e.target.name]: e.target.value });
+
+  const handleChange2 = (e) =>
+    setListProduct([{ ...listProduct, [e.target.name]: e.target.value }]);
   return (
     <div className="bg-gray-900/75 absolute top-0 left-0  w-full h-full grid justify-center content-center">
       <div className="modal-content border-none shadow-lg relative flex flex-col w-[32rem] pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
@@ -17,8 +46,7 @@ export default function FormProducts({ data }) {
             type="button"
             className="text-gray-400 bg-transparent  rounded-lg text-sm p-1.5 ml-auto inline-flex items-center "
             data-modal-toggle="authentication-modal"
-            // onClick={() => setModal(false)}
-          >
+            onClick={() => setModalForm(false)}>
             <svg
               className="w-6 h-6"
               fill="#626262"
@@ -33,64 +61,93 @@ export default function FormProducts({ data }) {
         </div>
         <form
           className="pt-6 px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8"
-          // onSubmit={handleSubmit}
-        >
+          onSubmit={handleSubmit}>
           <div className="flex items-center gap-x-4">
             <label
-              htmlFor="tipo"
+              htmlFor="namePerson"
               className="block mb-2 text-sm font-medium text-gray-900 ">
               Nombre
             </label>
             <input
-              // onChange={handleChange}
+              onChange={handleChange}
               type="text"
-              name="tipo"
-              id="tipo"
+              name="namePerson"
+              id="namePerson"
               className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5"
               required
             />
           </div>
           <div className="flex items-center gap-x-4 pb-4 border-b border-gray-200">
             <label
-              htmlFor="cantidad"
+              htmlFor="phone"
               className="block mb-2 text-sm font-medium text-gray-900 ">
               Celular
             </label>
             <input
-              // onChange={handleChange}
+              onChange={handleChange}
               type="number"
-              name="cantidad"
-              id="cantidad"
+              name="phone"
+              id="phone"
               className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 "
               required
             />
           </div>
-          {/*  */}
-          {listProduct.map((item, index) => (
-            <div
-              className="flex flex-row justify-between items-center "
-              key={index}>
-              <select name="pets" id="pet-select">
-                <option value="">--Please choose an option--</option>
-                <option value="dog">Dog</option>
-                <option value="cat">Cat</option>
-                <option value="hamster">Hamster</option>
-                <option value="parrot">Parrot</option>
-                <option value="spider">Spider</option>
-                <option value="goldfish">Goldfish</option>
-              </select>
-              <input
-                type="number"
-                placeholder="cantidad"
-                className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1.5 w-1/6"
-              />
-              <button
-                type="button"
-                className="inline-block px-1 py-1.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out">
-                x
-              </button>
-            </div>
-          ))}
+          {/* todavia no */}
+          {/* {listProduct.map((item, index) => ( */}
+          <div
+            className="flex flex-row justify-between items-center "
+            // key={index}
+          >
+            <select name="pets" id="pet-select">
+              {data2.map((item, index) => (
+                <option key={index} value="tipo">
+                  {item.tipo}
+                </option>
+              ))}
+            </select>
+            <input
+              onChange={handleChange2}
+              // value={item.cantidad}
+              type="number"
+              name="cantidad"
+              placeholder="cantidad"
+              className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1.5 w-1/6"
+            />
+            <button
+              type="button"
+              className="inline-block px-1 py-1.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out">
+              x
+            </button>
+          </div>
+          <div
+            className="flex flex-row justify-between items-center "
+            // key={index}
+          >
+            <select name="pets" id="pet-select">
+              {data2.map((item, index) => (
+                <option key={index} value="tipo">
+                  {item.tipo}
+                </option>
+              ))}
+            </select>
+            <input
+              onChange={handleChange2}
+              // value={item.cantidad}
+              type="number"
+              name="cantidad"
+              placeholder="cantidad"
+              className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1.5 w-1/6"
+            />
+            <button
+              type="button"
+              className="inline-block px-1 py-1.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out">
+              x
+            </button>
+          </div>
+          {/* ))} */}
+
+          {/* todavia no */}
+
           <div className="flex justify-center border-b border-gray-200 pb-4">
             <button
               type="button"
@@ -109,7 +166,7 @@ export default function FormProducts({ data }) {
               $
             </label>
             <input
-              // onChange={handleChange}
+              onChange={handleChange}
               type="number"
               name="costo"
               id="costo"
@@ -120,51 +177,38 @@ export default function FormProducts({ data }) {
           </div>
           <div className="flex items-center gap-x-4 pb-4 border-b border-gray-200 mt-0">
             <label
-              htmlFor="costo"
+              htmlFor="delivery"
               className="block text-sm font-medium text-gray-900 ">
               Entrega
             </label>
             <input
-              // onChange={handleChange}
+              onChange={handleChange}
               type="date"
-              name="costo"
-              id="costo"
+              name="delivery"
+              id="delivery"
               className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-1.5"
               required
             />
           </div>
           <div className="flex items-center gap-x-4 pb-4 border-b border-gray-200">
             <textarea
-              className="
-        form-control
-        block
-        w-full
-        px-3
-        py-1.5
-        text-base
-        font-normal
-        text-gray-700
-        bg-white bg-clip-padding
-        border border-solid border-gray-300
-        rounded
-        transition
-        ease-in-out
-        m-0
-        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-      "
-              id="exampleFormControlTextarea1"
+              onChange={handleChange}
+              className=" form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              name="description"
+              id="description"
               rows="3"
               placeholder="Your message"></textarea>
           </div>
           <div className="flex justify-evenly">
             <button
+              onClick={() => console.log(listProduct)}
               type="submit"
               className="order-last w-1/3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
               Add
             </button>
             <button
               type="submit"
-              // onClick={() => setModal(false)}
+              onClick={() => setModalForm(false)}
               className="w-1/3 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
               Cancelar
             </button>
@@ -173,10 +217,4 @@ export default function FormProducts({ data }) {
       </div>
     </div>
   );
-}
-
-export async function getServerSideProps() {
-  const res = await fetch(`http://localhost:3000/api/stock`);
-  const data = await res.json();
-  return { props: { data } };
 }

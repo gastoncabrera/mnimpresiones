@@ -1,9 +1,9 @@
 import { React, useState } from 'react';
 import { useRouter } from 'next/router';
 
-import FormProducts from './FormProducts';
+import FormProducts from '../../pages/products/index';
 
-export default function header({ children }) {
+export default function header({ children, modalForm, setModalForm }) {
   const router = useRouter();
   const [modal, setModal] = useState(false);
   const [newProduct, setNewProduct] = useState({ tipo: '', cantidad: '' });
@@ -19,8 +19,6 @@ export default function header({ children }) {
   };
 
   const { query, push } = useRouter();
-
-  console.log(router.pathname == '/stock');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -97,7 +95,7 @@ export default function header({ children }) {
           {router.pathname == '/products' && (
             <button
               type="button"
-              onClick={() => setModal(!modal)}
+              onClick={() => setModalForm(true)}
               className="mr-20 inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
               Añadir pedido
             </button>
@@ -183,7 +181,6 @@ export default function header({ children }) {
           </div>
         </div>
       )}
-      {true && router.pathname == '/products' && <FormProducts />}
     </div>
   );
 }

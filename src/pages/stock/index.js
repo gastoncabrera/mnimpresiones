@@ -1,6 +1,5 @@
 import { React, useState } from 'react';
 import { useRouter } from 'next/router';
-import { Confirm } from 'semantic-ui-react';
 
 export default function index({ data }) {
   const [test, setTest] = useState({ id: '', tipo: '' });

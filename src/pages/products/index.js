@@ -2,7 +2,11 @@ import { React, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Confirm } from 'semantic-ui-react';
 
-export default function index({ data }) {
+import FormProducts from '../../components/shared/FormProducts';
+
+export default function index({ data, data2, modalForm, setModalForm }) {
+  // console.log(data2);
+
   const [openModal, OpenModal] = useState(false);
 
   // --------- modal delete
@@ -17,7 +21,6 @@ export default function index({ data }) {
       <div className="flex gap-10 flex-wrap ">
         {data.map((item, index) => (
           <div className="flex" key={index}>
-            {/* {console.log(item.pedido)} */}
             <div className="flex flex-col w-80 rounded-lg shadow-lg bg-white max-w-sm text-center">
               <div className="py-1 px-6 font-medium">😄{item.namePerson}</div>
               <div className="py-1 px-6 border-b border-gray-300 font-extralight">
@@ -56,7 +59,6 @@ export default function index({ data }) {
           </div>
         ))}
       </div>
-
       {openModal && (
         <div className="bg-gray-900/75 absolute top-0 left-0  w-full h-full grid justify-center content-center">
           <div className="modal-content border-none shadow-lg relative flex flex-col w-[32rem] pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
@@ -90,6 +92,13 @@ export default function index({ data }) {
           </div>
         </div>
       )}
+      {modalForm && (
+        <FormProducts
+          modalForm={modalForm}
+          setModalForm={setModalForm}
+          data2={data2}
+        />
+      )}
     </>
   );
 }
@@ -97,5 +106,7 @@ export default function index({ data }) {
 export async function getServerSideProps() {
   const res = await fetch(`http://localhost:3000/api/pedido`);
   const data = await res.json();
-  return { props: { data } };
+  const res2 = await fetch(`http://localhost:3000/api/stock`);
+  const data2 = await res2.json();
+  return { props: { data, data2 } };
 }
