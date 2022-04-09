@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
 
 export default function FormProducts({ data2, modalForm, setModalForm }) {
-  const [listProduct, setListProduct] = useState([]);
+  const [listProduct, setListProduct] = useState([{ tipo: '', cantidad: '' }]);
 
   // formulario de pedido
 
@@ -12,10 +11,10 @@ export default function FormProducts({ data2, modalForm, setModalForm }) {
     phone: '',
     costo: '',
     delivery: '',
-    producto: [],
+    producto: [{ tipo: '', cantidad: '' }],
   });
 
-  const handleSubmit1 = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     console.log(newPedido);
@@ -34,25 +33,6 @@ export default function FormProducts({ data2, modalForm, setModalForm }) {
 
   const handleChange2 = (e) =>
     setListProduct([{ ...listProduct, [e.target.name]: e.target.value }]);
-
-  const handleChange3 = (e) =>
-    setIndexes([{ ...indexes, [e.target.name]: e.target.value }]);
-
-  // ----------------------
-
-  const [indexes, setIndexes] = useState([]);
-  const [counter, setCounter] = useState(0);
-  const { register, handleSubmit } = useForm();
-
-  const onSubmit = (data) => {
-    console.log(data);
-  };
-
-  const addFriend = () => {
-    setIndexes((a) => [...a, counter]);
-    setCounter((prevCounter) => prevCounter + 1);
-  };
-
   return (
     <div className="bg-gray-900/75 absolute top-0 left-0  w-full h-full grid justify-center content-center">
       <div className="modal-content border-none shadow-lg relative flex flex-col w-[32rem] pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
@@ -81,7 +61,7 @@ export default function FormProducts({ data2, modalForm, setModalForm }) {
         </div>
         <form
           className="pt-6 px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8"
-          onSubmit={handleSubmit1}>
+          onSubmit={handleSubmit}>
           <div className="flex items-center gap-x-4">
             <label
               htmlFor="namePerson"
@@ -112,41 +92,72 @@ export default function FormProducts({ data2, modalForm, setModalForm }) {
               required
             />
           </div>
-
-          <form onSubmit={handleSubmit(onSubmit)}>
-            {indexes.map((index) => {
-              const fieldName = `friends[${index}]`;
-              return (
-                <fieldset name={fieldName} key={fieldName}>
-                  <label>
-                    First Name {index}:
-                    <input
-                      type="text"
-                      {...register(`${fieldName}.firstName`)}
-
-                      // name={`${fieldName}.firstName`}
-                      // ref={register}
-                    />
-                  </label>
-
-                  <label>
-                    Last Name {index}:
-                    <input
-                      type="text"
-                      {...register(`${fieldName}.lastName`)}
-                      // name={`${fieldName}.lastName`}
-                      // ref={register}
-                    />
-                  </label>
-                </fieldset>
-              );
-            })}
-
-            <button type="button" onClick={addFriend}>
-              Add Friend
+          {/* todavia no */}
+          {/* {listProduct.map((item, index) => ( */}
+          <div
+            className="flex flex-row justify-between items-center "
+            // key={index}
+          >
+            <select name="pets" id="pet-select">
+              {data2.map((item, index) => (
+                <option key={index} value="tipo">
+                  {item.tipo}
+                </option>
+              ))}
+            </select>
+            <input
+              onChange={handleChange}
+              // value={item.cantidad}
+              type="number"
+              name="cantidad"
+              placeholder="cantidad"
+              className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1.5 w-1/6"
+            />
+            <button
+              type="button"
+              className="inline-block px-1 py-1.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out">
+              x
             </button>
-            <input type="submit" />
-          </form>
+          </div>
+          <div
+            className="flex flex-row justify-between items-center "
+            // key={index}
+          >
+            <select name="pets" id="pet-select">
+              {data2.map((item, index) => (
+                <option key={index} value="tipo">
+                  {item.tipo}
+                </option>
+              ))}
+            </select>
+            <input
+              onChange={handleChange2}
+              // value={item.cantidad}
+              type="number"
+              name="cantidad"
+              placeholder="cantidad"
+              className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1.5 w-1/6"
+            />
+            <button
+              type="button"
+              className="inline-block px-1 py-1.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out">
+              x
+            </button>
+          </div>
+          {/* ))} */}
+
+          {/* todavia no */}
+
+          <div className="flex justify-center border-b border-gray-200 pb-4">
+            <button
+              type="button"
+              onClick={() => {
+                setListProduct([...listProduct, { tipo: '', cantidad: '' }]);
+              }}
+              className="rounded-full inline-block px-2.5 py-1.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out">
+              +
+            </button>
+          </div>
 
           <div className="flex items-center gap-x-4 pb-0 ">
             <label
