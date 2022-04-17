@@ -76,6 +76,12 @@ export default function index({ data }) {
     }
   };
 
+  const colors = (valor) => {
+    if (valor <= 0) return 'bg-red-200';
+    if (valor < 10) return 'bg-yellow-200';
+    return 'bg-white';
+  };
+
   return !data ? (
     <div>Cargando...</div>
   ) : (
@@ -112,18 +118,22 @@ export default function index({ data }) {
                 <tbody>
                   {data.map((item, index) => (
                     <tr
-                      className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
+                      className={`${colors(
+                        item.cantidad
+                      )} border-b transition duration-300 ease-in-out `}
                       key={index}>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                         {index}
                       </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      <td
+                        className={`text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap`}>
                         {item.tipo}
                       </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      <td
+                        className={` text-md font-light px-6 py-4 whitespace-nowrap`}>
                         {item.cantidad}
                       </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      <td className="text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                         <button
                           type="button"
                           onClick={async () => {

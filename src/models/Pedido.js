@@ -1,4 +1,4 @@
-import { Schema, model, models } from "mongoose";
+import { Schema, model, models } from 'mongoose';
 
 const pedidoSchema = new Schema(
   {
@@ -6,9 +6,9 @@ const pedidoSchema = new Schema(
       {
         tipo: {
           type: String,
-          required: [true, "a"],
+          required: [true, 'a'],
           trim: true,
-          maxlength: [240, "Title must be less than 40 characters"],
+          maxlength: [240, 'Title must be less than 40 characters'],
         },
         cantidad: {
           type: Number,
@@ -19,9 +19,9 @@ const pedidoSchema = new Schema(
 
     description: {
       type: String,
-      required: [true, "b"],
+      required: [true, 'b'],
       trim: true,
-      maxlength: [240, "Title must be less than 40 characters"],
+      maxlength: [240, 'Title must be less than 40 characters'],
     },
 
     isComplete: {
@@ -31,18 +31,24 @@ const pedidoSchema = new Schema(
 
     namePerson: {
       type: String,
-      required: [true, "c"],
+      required: [true, 'c'],
       trim: true,
-      maxlength: [40, "Title must be less than 40 characters"],
+      maxlength: [40, 'Title must be less than 40 characters'],
     },
     phone: {
       type: Number,
-      required: [true, "d"],
+      required: [true, 'd'],
       trim: true,
-      maxlength: [10, "Title must be less than 10 characters"],
+      maxlength: [10, 'Title must be less than 10 characters'],
     },
-    deliveryDate: {
-      type: Date,
+    delivery: {
+      type: String,
+    },
+    costo: {
+      type: Number,
+    },
+    sena: {
+      type: Number,
     },
   },
   {
@@ -51,4 +57,4 @@ const pedidoSchema = new Schema(
   }
 );
 
-export default models.Pedido || model("Pedido", pedidoSchema);
+export default models.Pedido || model('Pedido', pedidoSchema);

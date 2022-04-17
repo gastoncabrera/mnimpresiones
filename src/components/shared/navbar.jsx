@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function navbar() {
   return (
-    <div className="py-3 w-60 h-full shadow-md bg-black px-1 absolute">
+    <div className="py-3 w-60 h-full shadow-md bg-black px-1 fixed">
       <h1 className="text-xl pt-4 pb-12 px-6 h-12 overflow-hidden text-[#A4A6B3] font-bold text-ellipsis whitespace-nowrap rounded">
         Logo
       </h1>

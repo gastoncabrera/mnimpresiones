@@ -1,57 +1,9 @@
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+
+import Test from './test';
 
 export default function FormProducts({ data2, modalForm, setModalForm }) {
-  const [listProduct, setListProduct] = useState([]);
-
-  // formulario de pedido
-
-  const [newPedido, setNewPedido] = useState({
-    description: '',
-    namePerson: '',
-    phone: '',
-    costo: '',
-    delivery: '',
-    producto: [],
-  });
-
-  const handleSubmit1 = async (e) => {
-    e.preventDefault();
-
-    console.log(newPedido);
-
-    // if (query.id) {
-    //   await updateProduct();
-    // } else {
-    //   await createProduct();
-    // }
-    // await push(router.pathname);
-    // await setModal(false);
-  };
-
-  const handleChange = (e) =>
-    setNewPedido({ ...newPedido, [e.target.name]: e.target.value });
-
-  const handleChange2 = (e) =>
-    setListProduct([{ ...listProduct, [e.target.name]: e.target.value }]);
-
-  const handleChange3 = (e) =>
-    setIndexes([{ ...indexes, [e.target.name]: e.target.value }]);
-
-  // ----------------------
-
-  const [indexes, setIndexes] = useState([]);
-  const [counter, setCounter] = useState(0);
-  const { register, handleSubmit } = useForm();
-
-  const onSubmit = (data) => {
-    console.log(data);
-  };
-
-  const addFriend = () => {
-    setIndexes((a) => [...a, counter]);
-    setCounter((prevCounter) => prevCounter + 1);
-  };
+  const [dropdown, setDropdown] = useState(false);
 
   return (
     <div className="bg-gray-900/75 absolute top-0 left-0  w-full h-full grid justify-center content-center">
@@ -79,130 +31,13 @@ export default function FormProducts({ data2, modalForm, setModalForm }) {
             </svg>
           </button>
         </div>
-        <form
-          className="pt-6 px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8"
-          onSubmit={handleSubmit1}>
-          <div className="flex items-center gap-x-4">
-            <label
-              htmlFor="namePerson"
-              className="block mb-2 text-sm font-medium text-gray-900 ">
-              Nombre
-            </label>
-            <input
-              onChange={handleChange}
-              type="text"
-              name="namePerson"
-              id="namePerson"
-              className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5"
-              required
-            />
-          </div>
-          <div className="flex items-center gap-x-4 pb-4 border-b border-gray-200">
-            <label
-              htmlFor="phone"
-              className="block mb-2 text-sm font-medium text-gray-900 ">
-              Celular
-            </label>
-            <input
-              onChange={handleChange}
-              type="number"
-              name="phone"
-              id="phone"
-              className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 "
-              required
-            />
-          </div>
-
-          <form onSubmit={handleSubmit(onSubmit)}>
-            {indexes.map((index) => {
-              const fieldName = `friends[${index}]`;
-              return (
-                <fieldset name={fieldName} key={fieldName}>
-                  <label>
-                    First Name {index}:
-                    <input
-                      type="text"
-                      {...register(`${fieldName}.firstName`)}
-
-                      // name={`${fieldName}.firstName`}
-                      // ref={register}
-                    />
-                  </label>
-
-                  <label>
-                    Last Name {index}:
-                    <input
-                      type="text"
-                      {...register(`${fieldName}.lastName`)}
-                      // name={`${fieldName}.lastName`}
-                      // ref={register}
-                    />
-                  </label>
-                </fieldset>
-              );
-            })}
-
-            <button type="button" onClick={addFriend}>
-              Add Friend
-            </button>
-            <input type="submit" />
-          </form>
-
-          <div className="flex items-center gap-x-4 pb-0 ">
-            <label
-              htmlFor="costo"
-              className="block text-sm font-medium text-gray-900 ">
-              $
-            </label>
-            <input
-              onChange={handleChange}
-              type="number"
-              name="costo"
-              id="costo"
-              className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-1.5"
-              placeholder="Costo"
-              required
-            />
-          </div>
-          <div className="flex items-center gap-x-4 pb-4 border-b border-gray-200 mt-0">
-            <label
-              htmlFor="delivery"
-              className="block text-sm font-medium text-gray-900 ">
-              Entrega
-            </label>
-            <input
-              onChange={handleChange}
-              type="date"
-              name="delivery"
-              id="delivery"
-              className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-1.5"
-              required
-            />
-          </div>
-          <div className="flex items-center gap-x-4 pb-4 border-b border-gray-200">
-            <textarea
-              onChange={handleChange}
-              className=" form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-              name="description"
-              id="description"
-              rows="3"
-              placeholder="Your message"></textarea>
-          </div>
-          <div className="flex justify-evenly">
-            <button
-              onClick={() => console.log(listProduct)}
-              type="submit"
-              className="order-last w-1/3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-              Add
-            </button>
-            <button
-              type="submit"
-              onClick={() => setModalForm(false)}
-              className="w-1/3 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-              Cancelar
-            </button>
-          </div>
-        </form>
+        <Test
+          modalForm={modalForm}
+          setModalForm={setModalForm}
+          data2={data2}
+          dropdown={dropdown}
+          setDropdown={setDropdown}
+        />
       </div>
     </div>
   );

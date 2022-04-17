@@ -1,55 +1,83 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-import { useForm } from 'react-hook-form';
 
-export default function Test() {
-  const [indexes, setIndexes] = useState([]);
-  const [counter, setCounter] = useState(0);
-  const { register, handleSubmit } = useForm();
+export default function FormProducts() {
+  const [newPedido, setNewPedido] = useState({
+    // description: '',
+    // namePerson: '',
+    // phone: '',
+    // costo: '',
+    // delivery: '',
+    // producto: [],
+    name: '',
+    shareholders: [{ name: '' }],
+  });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const handleNameChange = (evt) => {
+    setNewPedido({ name: evt.target.value });
   };
 
-  const addFriend = () => {
-    setIndexes((a) => [...a, counter]);
-    setCounter((prevCounter) => prevCounter + 1);
+  const handleShareholderNameChange = (idx) => (evt) => {
+    const newShareholders = newPedido.shareholders.map((shareholder, sidx) => {
+      if (idx !== sidx) return shareholder;
+      return { ...shareholder, name: evt.target.value };
+    });
+
+    setNewPedido({ shareholders: newShareholders });
   };
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    const { name, shareholders } = newPedido;
+    // alert(`Incorporated: ${name} with ${shareholders.length} shareholders`);
+    console.log(newPedido);
+  };
+
+  const handleAddShareholder = () => {
+    setNewPedido({
+      shareholders: newPedido.shareholders.concat([{ name: '' }]),
+    });
+  };
+
+  const handleRemoveShareholder = (idx) => () => {
+    setNewPedido({
+      shareholders: newPedido.shareholders.filter((s, sidx) => idx !== sidx),
+    });
+  };
+
+  console.log(newPedido.shareholders);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      {indexes.map((index) => {
-        const fieldName = `friends[${index}]`;
-        return (
-          <fieldset name={fieldName} key={fieldName}>
-            <label>
-              First Name {index}:
-              <input
-                type="text"
-                {...register(`${fieldName}.firstName`)}
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Company name, e.g. Magic Everywhere LLC"
+        value={newPedido.name}
+        name={newPedido.name}
+        onChange={handleNameChange}
+      />
 
-                // name={`${fieldName}.firstName`}
-                // ref={register}
-              />
-            </label>
+      <h4>Shareholders</h4>
 
-            <label>
-              Last Name {index}:
-              <input
-                type="text"
-                {...register(`${fieldName}.lastName`)}
-                // name={`${fieldName}.lastName`}
-                // ref={register}
-              />
-            </label>
-          </fieldset>
-        );
-      })}
-
-      <button type="button" onClick={addFriend}>
-        Add Friend
+      {newPedido.shareholders.map((shareholder, idx) => (
+        <div className="shareholder" key={idx}>
+          <input
+            type="text"
+            placeholder={`Shareholder #${idx + 1} name`}
+            value={shareholder.name}
+            onChange={handleShareholderNameChange(idx)}
+          />
+          <button
+            type="button"
+            onClick={handleRemoveShareholder(idx)}
+            className="small">
+            -
+          </button>
+        </div>
+      ))}
+      <button type="button" onClick={handleAddShareholder} className="small">
+        Add Shareholder
       </button>
-      <input type="submit" />
+      <button>Incorporate</button>
     </form>
   );
 }

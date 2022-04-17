@@ -7,7 +7,7 @@ import Layout from '../components/shared/layout';
 import Header from '../components/shared/header';
 
 function MyApp({ data, Component, pageProps }) {
-  const [modalForm, setModalForm] = useState(true);
+  const [modalForm, setModalForm] = useState(false);
 
   return (
     <Layout>
